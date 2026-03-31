@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>World Law Explorer</title>
+  <title>LexGlobe — World Law Explorer</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -11,8 +11,10 @@
 </head>
 <body>
 
+  <!-- Floating grain overlay -->
   <div class="grain"></div>
 
+  <!-- Decorative globe lines -->
   <div class="globe-lines" aria-hidden="true">
     <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
       <ellipse cx="400" cy="400" rx="380" ry="380" stroke="currentColor" stroke-width="0.5"/>
@@ -26,6 +28,9 @@
   </div>
 
   <header>
+    <div class="logo">
+      <span class="logo-icon">§</span>
+      <span class="logo-text">LexGlobe</span>
     </div>
     <nav>
       <button class="nav-link active" id="navSearch">Search</button>
@@ -37,13 +42,14 @@
   </header>
 
   <main>
-
+    <!-- Hero Section -->
     <section class="hero" id="heroSection">
       <p class="hero-tag">World Law Explorer</p>
       <h1 class="hero-title">Understand the law,<br/><em>anywhere.</em></h1>
       <p class="hero-sub">Select a country, type a legal topic, and get a clear, plain-language explanation powered by AI.</p>
     </section>
 
+    <!-- ═══ SEARCH PANEL ═══ -->
     <section class="search-panel" id="searchPanel">
       <div class="search-row">
         <div class="input-group country-group">
@@ -112,6 +118,7 @@
         </div>
       </div>
 
+      <!-- Quick Topics -->
       <div class="quick-topics">
         <span class="qt-label">Popular:</span>
         <button class="qt-chip" data-topic="Property Ownership">Property</button>
@@ -123,6 +130,7 @@
       </div>
     </section>
 
+    <!-- ═══ COMPARE PANEL ═══ -->
     <section class="search-panel hidden" id="comparePanel">
       <p class="panel-desc">Compare how two countries handle the same legal topic side by side.</p>
       <div class="compare-row">
@@ -224,10 +232,12 @@
       </div>
     </section>
 
+    <!-- Result Section -->
     <section class="result-section" id="resultSection">
       <div id="result"></div>
     </section>
 
+    <!-- History Panel -->
     <section class="history-panel hidden" id="historyPanel">
       <h2>Search History</h2>
       <div class="filter-bar">
@@ -237,6 +247,7 @@
       <p class="empty-state" id="historyEmpty">No searches yet. Start exploring!</p>
     </section>
 
+    <!-- Bookmarks Panel -->
     <section class="bookmarks-panel hidden" id="bookmarksPanel">
       <h2>Bookmarks</h2>
       <div class="filter-bar">
@@ -248,7 +259,7 @@
   </main>
 
   <footer>
-    <p>AI-powered legal information. <span class="footer-warn">Not legal advice.</span></p>
+    <p>LexGlobe — AI-powered legal information. <span class="footer-warn">Not legal advice.</span></p>
     <p class="footer-credit">Powered by <a href="https://groq.com" target="_blank" rel="noopener">Groq API</a> &amp; <a href="https://llama.meta.com" target="_blank" rel="noopener">Meta Llama 3.1</a></p>
   </footer>
 
