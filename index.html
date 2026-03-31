@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>World Law Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <div class="grain"></div>
+
+  <div class="globe-lines" aria-hidden="true">
+    <svg viewBox="0 0 800 800" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="400" cy="400" rx="380" ry="380" stroke="currentColor" stroke-width="0.5"/>
+      <ellipse cx="400" cy="400" rx="260" ry="380" stroke="currentColor" stroke-width="0.5"/>
+      <ellipse cx="400" cy="400" rx="120" ry="380" stroke="currentColor" stroke-width="0.5"/>
+      <ellipse cx="400" cy="400" rx="380" ry="260" stroke="currentColor" stroke-width="0.5" transform="rotate(90 400 400)"/>
+      <ellipse cx="400" cy="400" rx="380" ry="120" stroke="currentColor" stroke-width="0.5" transform="rotate(90 400 400)"/>
+      <line x1="20" y1="400" x2="780" y2="400" stroke="currentColor" stroke-width="0.5"/>
+      <line x1="400" y1="20" x2="400" y2="780" stroke="currentColor" stroke-width="0.5"/>
+    </svg>
+  </div>
+
+  <header>
+    </div>
+    <nav>
+      <button class="nav-link active" id="navSearch">Search</button>
+      <button class="nav-link" id="navCompare">Compare</button>
+      <button class="nav-link" id="navHistory">History</button>
+      <button class="nav-link" id="navBookmarks">Bookmarks</button>
+    </nav>
+    <div class="header-accent"></div>
+  </header>
+
+  <main>
+
+    <section class="hero" id="heroSection">
+      <p class="hero-tag">World Law Explorer</p>
+      <h1 class="hero-title">Understand the law,<br/><em>anywhere.</em></h1>
+      <p class="hero-sub">Select a country, type a legal topic, and get a clear, plain-language explanation powered by AI.</p>
+    </section>
+
+    <section class="search-panel" id="searchPanel">
+      <div class="search-row">
+        <div class="input-group country-group">
+          <label for="countrySelect">Country</label>
+          <div class="select-wrap">
+            <select id="countrySelect">
+              <option value="">Choose a country…</option>
+              <optgroup label="Africa">
+                <option value="Rwanda">🇷🇼 Rwanda</option>
+                <option value="Nigeria">🇳🇬 Nigeria</option>
+                <option value="South Africa">🇿🇦 South Africa</option>
+                <option value="Kenya">🇰🇪 Kenya</option>
+                <option value="Egypt">🇪🇬 Egypt</option>
+                <option value="Ghana">🇬🇭 Ghana</option>
+                <option value="Ethiopia">🇪🇹 Ethiopia</option>
+                <option value="Tanzania">🇹🇿 Tanzania</option>
+                <option value="Morocco">🇲🇦 Morocco</option>
+              </optgroup>
+              <optgroup label="Americas">
+                <option value="United States">🇺🇸 United States</option>
+                <option value="Canada">🇨🇦 Canada</option>
+                <option value="Brazil">🇧🇷 Brazil</option>
+                <option value="Mexico">🇲🇽 Mexico</option>
+                <option value="Argentina">🇦🇷 Argentina</option>
+                <option value="Colombia">🇨🇴 Colombia</option>
+              </optgroup>
+              <optgroup label="Asia">
+                <option value="India">🇮🇳 India</option>
+                <option value="China">🇨🇳 China</option>
+                <option value="Japan">🇯🇵 Japan</option>
+                <option value="South Korea">🇰🇷 South Korea</option>
+                <option value="Indonesia">🇮🇩 Indonesia</option>
+                <option value="Saudi Arabia">🇸🇦 Saudi Arabia</option>
+                <option value="United Arab Emirates">🇦🇪 UAE</option>
+                <option value="Singapore">🇸🇬 Singapore</option>
+                <option value="Philippines">🇵🇭 Philippines</option>
+              </optgroup>
+              <optgroup label="Europe">
+                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                <option value="France">🇫🇷 France</option>
+                <option value="Germany">🇩🇪 Germany</option>
+                <option value="Italy">🇮🇹 Italy</option>
+                <option value="Spain">🇪🇸 Spain</option>
+                <option value="Netherlands">🇳🇱 Netherlands</option>
+                <option value="Sweden">🇸🇪 Sweden</option>
+                <option value="Switzerland">🇨🇭 Switzerland</option>
+                <option value="Poland">🇵🇱 Poland</option>
+              </optgroup>
+              <optgroup label="Oceania">
+                <option value="Australia">🇦🇺 Australia</option>
+                <option value="New Zealand">🇳🇿 New Zealand</option>
+              </optgroup>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <div class="input-group search-group">
+          <label for="lawInput">Legal topic</label>
+          <div class="search-input-wrap">
+            <input type="text" id="lawInput" placeholder="e.g. property ownership, traffic fines, labour rights…" autocomplete="off" />
+            <button id="searchBtn" aria-label="Search">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="quick-topics">
+        <span class="qt-label">Popular:</span>
+        <button class="qt-chip" data-topic="Property Ownership">Property</button>
+        <button class="qt-chip" data-topic="Labour Rights">Labour</button>
+        <button class="qt-chip" data-topic="Business Registration">Business</button>
+        <button class="qt-chip" data-topic="Immigration">Immigration</button>
+        <button class="qt-chip" data-topic="Tax Regulations">Tax</button>
+        <button class="qt-chip" data-topic="Criminal Law">Criminal</button>
+      </div>
+    </section>
+
+    <section class="search-panel hidden" id="comparePanel">
+      <p class="panel-desc">Compare how two countries handle the same legal topic side by side.</p>
+      <div class="compare-row">
+        <div class="input-group">
+          <label for="compareCountry1">Country 1</label>
+          <div class="select-wrap">
+            <select id="compareCountry1">
+              <option value="">Choose…</option>
+              <optgroup label="Africa">
+                <option value="Rwanda">🇷🇼 Rwanda</option>
+                <option value="Nigeria">🇳🇬 Nigeria</option>
+                <option value="South Africa">🇿🇦 South Africa</option>
+                <option value="Kenya">🇰🇪 Kenya</option>
+                <option value="Egypt">🇪🇬 Egypt</option>
+                <option value="Ghana">🇬🇭 Ghana</option>
+              </optgroup>
+              <optgroup label="Americas">
+                <option value="United States">🇺🇸 United States</option>
+                <option value="Canada">🇨🇦 Canada</option>
+                <option value="Brazil">🇧🇷 Brazil</option>
+                <option value="Mexico">🇲🇽 Mexico</option>
+              </optgroup>
+              <optgroup label="Asia">
+                <option value="India">🇮🇳 India</option>
+                <option value="China">🇨🇳 China</option>
+                <option value="Japan">🇯🇵 Japan</option>
+                <option value="South Korea">🇰🇷 South Korea</option>
+                <option value="United Arab Emirates">🇦🇪 UAE</option>
+                <option value="Singapore">🇸🇬 Singapore</option>
+              </optgroup>
+              <optgroup label="Europe">
+                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                <option value="France">🇫🇷 France</option>
+                <option value="Germany">🇩🇪 Germany</option>
+                <option value="Italy">🇮🇹 Italy</option>
+                <option value="Spain">🇪🇸 Spain</option>
+              </optgroup>
+              <optgroup label="Oceania">
+                <option value="Australia">🇦🇺 Australia</option>
+                <option value="New Zealand">🇳🇿 New Zealand</option>
+              </optgroup>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label for="compareCountry2">Country 2</label>
+          <div class="select-wrap">
+            <select id="compareCountry2">
+              <option value="">Choose…</option>
+              <optgroup label="Africa">
+                <option value="Rwanda">🇷🇼 Rwanda</option>
+                <option value="Nigeria">🇳🇬 Nigeria</option>
+                <option value="South Africa">🇿🇦 South Africa</option>
+                <option value="Kenya">🇰🇪 Kenya</option>
+                <option value="Egypt">🇪🇬 Egypt</option>
+                <option value="Ghana">🇬🇭 Ghana</option>
+              </optgroup>
+              <optgroup label="Americas">
+                <option value="United States">🇺🇸 United States</option>
+                <option value="Canada">🇨🇦 Canada</option>
+                <option value="Brazil">🇧🇷 Brazil</option>
+                <option value="Mexico">🇲🇽 Mexico</option>
+              </optgroup>
+              <optgroup label="Asia">
+                <option value="India">🇮🇳 India</option>
+                <option value="China">🇨🇳 China</option>
+                <option value="Japan">🇯🇵 Japan</option>
+                <option value="South Korea">🇰🇷 South Korea</option>
+                <option value="United Arab Emirates">🇦🇪 UAE</option>
+                <option value="Singapore">🇸🇬 Singapore</option>
+              </optgroup>
+              <optgroup label="Europe">
+                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                <option value="France">🇫🇷 France</option>
+                <option value="Germany">🇩🇪 Germany</option>
+                <option value="Italy">🇮🇹 Italy</option>
+                <option value="Spain">🇪🇸 Spain</option>
+              </optgroup>
+              <optgroup label="Oceania">
+                <option value="Australia">🇦🇺 Australia</option>
+                <option value="New Zealand">🇳🇿 New Zealand</option>
+              </optgroup>
+            </select>
+            <span class="select-arrow">▾</span>
+          </div>
+        </div>
+
+        <div class="input-group search-group">
+          <label for="compareLawInput">Legal topic</label>
+          <div class="search-input-wrap">
+            <input type="text" id="compareLawInput" placeholder="e.g. data privacy, minimum wage…" autocomplete="off" />
+            <button id="compareBtn" aria-label="Compare">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="result-section" id="resultSection">
+      <div id="result"></div>
+    </section>
+
+    <section class="history-panel hidden" id="historyPanel">
+      <h2>Search History</h2>
+      <div class="filter-bar">
+        <input type="text" id="historyFilter" placeholder="Filter history…" class="filter-input" />
+      </div>
+      <div id="historyList" class="card-list"></div>
+      <p class="empty-state" id="historyEmpty">No searches yet. Start exploring!</p>
+    </section>
+
+    <section class="bookmarks-panel hidden" id="bookmarksPanel">
+      <h2>Bookmarks</h2>
+      <div class="filter-bar">
+        <input type="text" id="bookmarksFilter" placeholder="Filter bookmarks…" class="filter-input" />
+      </div>
+      <div id="bookmarksList" class="card-list"></div>
+      <p class="empty-state" id="bookmarksEmpty">No bookmarks yet. Save results you find useful!</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>AI-powered legal information. <span class="footer-warn">Not legal advice.</span></p>
+    <p class="footer-credit">Powered by <a href="https://groq.com" target="_blank" rel="noopener">Groq API</a> &amp; <a href="https://llama.meta.com" target="_blank" rel="noopener">Meta Llama 3.1</a></p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
