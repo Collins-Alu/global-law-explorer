@@ -238,7 +238,7 @@ sudo systemctl restart nginx
 
 ### Step 4: Verify
 
-- Visit `http://LB01_IP` in your browser — the app should load.
+- Visit `http://13.218.64.222/` in your browser — the app should load.
 - Refresh multiple times and check Nginx access logs on Web01 and Web02 to confirm traffic is being distributed:
 
 ```bash
