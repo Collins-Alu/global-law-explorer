@@ -1,10 +1,3 @@
-/* ═══════════════════════════════════════════════════
-   LexGlobe — Frontend Application
-   All API calls go through the Express server proxy.
-   No API keys in this file.
-   ═══════════════════════════════════════════════════ */
-
-/* ── DOM References ─────────────────────────────── */
 const searchBtn      = document.getElementById("searchBtn");
 const lawInput       = document.getElementById("lawInput");
 const countrySelect  = document.getElementById("countrySelect");
@@ -34,13 +27,11 @@ const bookmarksEmpty = document.getElementById("bookmarksEmpty");
 const historyFilter  = document.getElementById("historyFilter");
 const bookmarksFilter= document.getElementById("bookmarksFilter");
 
-/* ── State ──────────────────────────────────────── */
 let history   = JSON.parse(localStorage.getItem("lexglobe_history")   || "[]");
 let bookmarks = JSON.parse(localStorage.getItem("lexglobe_bookmarks") || "[]");
 
-/* ── Navigation ─────────────────────────────────── */
 function switchPanel(panel) {
-  // Deactivate all nav buttons
+
   [navSearch, navCompare, navHistory, navBookmarks].forEach(b => b.classList.remove("active"));
 
   // Hide all panels
@@ -74,7 +65,6 @@ navCompare.addEventListener("click",   () => switchPanel("compare"));
 navHistory.addEventListener("click",   () => switchPanel("history"));
 navBookmarks.addEventListener("click", () => switchPanel("bookmarks"));
 
-/* ── Quick Topic Chips ─────────────────────────── */
 document.querySelectorAll(".qt-chip").forEach(chip => {
   chip.addEventListener("click", () => {
     lawInput.value = chip.dataset.topic;
@@ -82,7 +72,6 @@ document.querySelectorAll(".qt-chip").forEach(chip => {
   });
 });
 
-/* ── Enter key to search ───────────────────────── */
 lawInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") fetchLaw();
 });
@@ -90,13 +79,9 @@ compareLawInput.addEventListener("keydown", (e) => {
   if (e.key === "Enter") fetchCompare();
 });
 
-/* ── Filter listeners ──────────────────────────── */
 historyFilter.addEventListener("input", () => renderHistory(historyFilter.value.trim().toLowerCase()));
 bookmarksFilter.addEventListener("input", () => renderBookmarks(bookmarksFilter.value.trim().toLowerCase()));
 
-/* ═══════════════════════════════════════════════════
-   SEARCH — single country lookup
-   ═══════════════════════════════════════════════════ */
 searchBtn.addEventListener("click", fetchLaw);
 
 async function fetchLaw() {
@@ -127,7 +112,6 @@ async function fetchLaw() {
 
     const answer = data.answer;
 
-    // Save to history
     history.unshift({ country, law, answer, timestamp: Date.now() });
     if (history.length > 50) history.pop();
     localStorage.setItem("lexglobe_history", JSON.stringify(history));
@@ -142,9 +126,6 @@ async function fetchLaw() {
   }
 }
 
-/* ═══════════════════════════════════════════════════
-   COMPARE — two countries, same topic
-   ═══════════════════════════════════════════════════ */
 compareBtn.addEventListener("click", fetchCompare);
 
 async function fetchCompare() {
@@ -189,9 +170,6 @@ async function fetchCompare() {
   }
 }
 
-/* ═══════════════════════════════════════════════════
-   RENDER HELPERS
-   ═══════════════════════════════════════════════════ */
 
 function showLoading() {
   resultDiv.innerHTML = `
@@ -223,7 +201,6 @@ function showError(msg) {
   `;
 }
 
-/* ── Single result ─────────────────────────────── */
 function showResult(country, law, answer) {
   const isBookmarked = bookmarks.some(b => b.country === country && b.law === law);
   const htmlContent = markdownToHTML(answer);
@@ -257,7 +234,6 @@ function showResult(country, law, answer) {
   resultDiv.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-/* ── Compare result ────────────────────────────── */
 function showCompareResult(c1, c2, law, a1, a2) {
   resultDiv.innerHTML = `
     <div class="compare-grid">
@@ -283,9 +259,6 @@ function showCompareResult(c1, c2, law, a1, a2) {
   resultDiv.scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-/* ═══════════════════════════════════════════════════
-   BOOKMARKS
-   ═══════════════════════════════════════════════════ */
 function toggleBookmark(country, law, answer) {
   const idx = bookmarks.findIndex(b => b.country === country && b.law === law);
   if (idx > -1) {
@@ -297,9 +270,6 @@ function toggleBookmark(country, law, answer) {
   showResult(country, law, answer);
 }
 
-/* ═══════════════════════════════════════════════════
-   HISTORY — with filtering
-   ═══════════════════════════════════════════════════ */
 function renderHistory(filter = "") {
   const filtered = filter
     ? history.filter(h =>
@@ -331,7 +301,6 @@ function renderHistory(filter = "") {
     </div>
   `}).join("");
 
-  // Click to view
   historyList.querySelectorAll(".history-card").forEach(card => {
     card.addEventListener("click", (e) => {
       if (e.target.closest(".card-delete")) return;
@@ -343,7 +312,6 @@ function renderHistory(filter = "") {
     });
   });
 
-  // Delete
   historyList.querySelectorAll(".card-delete").forEach(btn => {
     btn.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -354,9 +322,6 @@ function renderHistory(filter = "") {
   });
 }
 
-/* ═══════════════════════════════════════════════════
-   BOOKMARKS — with filtering
-   ═══════════════════════════════════════════════════ */
 function renderBookmarks(filter = "") {
   const filtered = filter
     ? bookmarks.filter(b =>
@@ -409,9 +374,6 @@ function renderBookmarks(filter = "") {
   });
 }
 
-/* ═══════════════════════════════════════════════════
-   UTILITIES
-   ═══════════════════════════════════════════════════ */
 
 function copyToClipboard(text) {
   navigator.clipboard.writeText(text).then(() => {
@@ -423,32 +385,26 @@ function copyToClipboard(text) {
   });
 }
 
-/* ── Minimal Markdown → HTML ───────────────────── */
 function markdownToHTML(md) {
   let html = escapeHTML(md);
 
-  // Headers
+
   html = html.replace(/^#### (.+)$/gm, '<h4>$1</h4>');
   html = html.replace(/^### (.+)$/gm, '<h4>$1</h4>');
   html = html.replace(/^## (.+)$/gm, '<h3>$1</h3>');
   html = html.replace(/^# (.+)$/gm, '<h3>$1</h3>');
 
-  // Bold & italic
   html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
   html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
 
-  // Unordered lists
   html = html.replace(/^[-•] (.+)$/gm, '<li>$1</li>');
   html = html.replace(/((?:<li>.*<\/li>\n?)+)/g, '<ul>$1</ul>');
 
-  // Numbered lists
   html = html.replace(/^\d+\.\s(.+)$/gm, '<li>$1</li>');
 
-  // Paragraphs
   html = html.replace(/\n{2,}/g, '</p><p>');
   html = '<p>' + html + '</p>';
 
-  // Clean up
   html = html.replace(/<p>\s*<\/p>/g, '');
   html = html.replace(/<p>\s*(<h[34]>)/g, '$1');
   html = html.replace(/(<\/h[34]>)\s*<\/p>/g, '$1');
@@ -475,5 +431,4 @@ function timeAgo(ts) {
   return `${days}d ago`;
 }
 
-/* ── Init ──────────────────────────────────────── */
 switchPanel("search");

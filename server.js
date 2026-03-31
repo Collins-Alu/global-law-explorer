@@ -5,20 +5,14 @@ require("dotenv").config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve static frontend files from the same directory
 app.use(express.static(__dirname));
 
-// ── API Proxy Route ────────────────────────────────
-// Frontend calls this instead of Groq directly.
-// The API key stays on the server, never sent to the browser.
 app.post("/api/ask", async (req, res) => {
   const { country, law } = req.body;
 
-  // Input validation
   if (!country || typeof country !== "string" || country.trim().length === 0) {
     return res.status(400).json({ error: "A valid country is required." });
   }
@@ -26,7 +20,6 @@ app.post("/api/ask", async (req, res) => {
     return res.status(400).json({ error: "A valid legal topic is required." });
   }
 
-  // Sanitize inputs (basic XSS prevention)
   const cleanCountry = country.trim().slice(0, 100);
   const cleanLaw = law.trim().slice(0, 200);
 
@@ -81,7 +74,6 @@ app.post("/api/ask", async (req, res) => {
   }
 });
 
-// ── Compare Route (two countries, same topic) ──────
 app.post("/api/compare", async (req, res) => {
   const { country1, country2, law } = req.body;
 
@@ -99,7 +91,6 @@ app.post("/api/compare", async (req, res) => {
     return res.status(500).json({ error: "Server misconfiguration. API key not found." });
   }
 
-  // Fetch both in parallel
   const fetchForCountry = async (country) => {
     const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
       method: "POST",
@@ -147,7 +138,6 @@ app.post("/api/compare", async (req, res) => {
   }
 });
 
-// ── Start Server ───────────────────────────────────
 app.listen(PORT, () => {
   console.log(`LexGlobe server running at http://localhost:${PORT}`);
 });
